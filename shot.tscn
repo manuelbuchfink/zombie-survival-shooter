@@ -4,17 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://bbnc1q7k12d8h" path="res://assets/laserRed01.png" id="2_f4qg3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ldfn"]
-size = Vector2(35, 6)
+size = Vector2(16, 4)
 
 [node name="Shot" type="Area2D"]
 script = ExtResource("1_3ldfn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
+scale = Vector2(0.54958, 0.340272)
 texture = ExtResource("2_f4qg3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8.5, 0)
 shape = SubResource("RectangleShape2D_3ldfn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
