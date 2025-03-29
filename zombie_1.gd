@@ -2,9 +2,13 @@ extends CharacterBody2D
 
 var speed = 50
 var alive = true
+var health = 100
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var progress_bar: ProgressBar = $ProgressBar
 
 func _ready():
+	progress_bar.visible = false
+	progress_bar.value = health	
 	pass
 	
 func _physics_process(delta: float) -> void:

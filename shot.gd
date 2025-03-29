@@ -1,6 +1,8 @@
 extends Area2D
 
-@export var speed = 3500
+@export var speed = 2500
+
+
 
 func _physics_process(delta):
 	position += transform.x * speed * delta
@@ -8,11 +10,20 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print(body)
+	
+	queue_free()
+	body.progress_bar.value = body.health
 	if body.alive:
-		body.get_node("AnimatedSprite2D").play("die")
-		body.alive = false
-		queue_free()
+		body.progress_bar.visible = true
+		if body.health > 0:
+			body.health -= 25
+			
+		else:
+			body.progress_bar.visible = false
+			body.get_node("AnimatedSprite2D").play("die")
+			body.alive = false
+			
+		
 	else:
 		pass
 	 

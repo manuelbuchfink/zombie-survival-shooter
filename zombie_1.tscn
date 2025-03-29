@@ -138,3 +138,11 @@ frame_progress = 0.016166
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 31)
 shape = SubResource("RectangleShape2D_x582c")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0.933327, 3.27289e-06, 9.62615e-07, 1)
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 17.0
+offset_bottom = -5.0
+show_percentage = false
