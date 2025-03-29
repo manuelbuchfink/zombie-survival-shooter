@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=3 uid="uid://dghn1nidlpy18"]
+
+[ext_resource type="Texture2D" uid="uid://bunsow5vky0mf" path="res://assets/hero_right_walk_16x16.png" id="1_48ufq"]
+
+[sub_resource type="GDScript" id="GDScript_48ufq"]
+script/source = "extends CharacterBody2D
+
+@export var Shot : PackedScene
+@onready var muzzle: Marker2D = $Muzzle  
+
+
+const SPEED = 200.0
+func shoot():  
+	var bullet_scene = preload(\"res://shot.tscn\").instantiate()	
+	var level_root = get_tree().get_root() # access root
+	
+	level_root.add_child(bullet_scene) # add child to root
+	bullet_scene.transform = muzzle.global_transform # assign muzzle pos to new bullet
+	
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"shoot\"):
+		shoot()
+		
+	var direction := Input.get_axis(\"ui_down\", \"ui_up\")
+	
+	if direction:
+		velocity.y = -direction * SPEED
+		$AnimatedSprite2D.play(\"move\")
+	else:
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+		$AnimatedSprite2D.play(\"idle\")
+	
+	move_and_slide()
+	
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmkwl"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvl38"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q423"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yqgs"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jw0ju"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2v62t"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcpx6"]
+atlas = ExtResource("1_48ufq")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3evn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmkwl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvl38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2q423")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yqgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jw0ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2v62t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcpx6")
+}],
+"loop": true,
+"name": &"move",
+"speed": 13.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5q0wt"]
+radius = 16.1245
+
+[node name="Player" type="CharacterBody2D"]
+script = SubResource("GDScript_48ufq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-17, -36)
+scale = Vector2(2.0625, 2.25)
+sprite_frames = SubResource("SpriteFrames_u3evn")
+animation = &"move"
+frame_progress = 0.760326
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-19, -25)
+shape = SubResource("CircleShape2D_5q0wt")

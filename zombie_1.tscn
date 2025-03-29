@@ -1,0 +1,140 @@
+[gd_scene load_steps=21 format=3 uid="uid://cjtvx57kj8vyw"]
+
+[ext_resource type="Texture2D" uid="uid://jdilndfg8rid" path="res://assets/Zombie_1/Walk.png" id="1_41akp"]
+[ext_resource type="Texture2D" uid="uid://biba7lu8bddtm" path="res://assets/Zombie_1/Dead.png" id="1_dv2gm"]
+[ext_resource type="Script" uid="uid://clj6byvwkapka" path="res://zombie_1.gd" id="1_x582c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ovfi"]
+atlas = ExtResource("1_dv2gm")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wwkg"]
+atlas = ExtResource("1_dv2gm")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8aemr"]
+atlas = ExtResource("1_dv2gm")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_groxe"]
+atlas = ExtResource("1_dv2gm")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm013"]
+atlas = ExtResource("1_dv2gm")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dv2gm"]
+atlas = ExtResource("1_41akp")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x582c"]
+atlas = ExtResource("1_41akp")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7csdf"]
+atlas = ExtResource("1_41akp")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjtlo"]
+atlas = ExtResource("1_41akp")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72ah4"]
+atlas = ExtResource("1_41akp")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcj4p"]
+atlas = ExtResource("1_41akp")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s6we"]
+atlas = ExtResource("1_41akp")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y83bt"]
+atlas = ExtResource("1_41akp")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6biv4"]
+atlas = ExtResource("1_41akp")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grglb"]
+atlas = ExtResource("1_41akp")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ovfi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ovfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wwkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8aemr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_groxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm013")
+}],
+"loop": false,
+"name": &"die",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dv2gm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x582c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7csdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjtlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72ah4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcj4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s6we")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y83bt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6biv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grglb")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x582c"]
+size = Vector2(20, 64)
+
+[node name="Zombie_1" type="CharacterBody2D"]
+script = ExtResource("1_x582c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_1ovfi")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.016166
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 31)
+shape = SubResource("RectangleShape2D_x582c")
