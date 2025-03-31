@@ -1,8 +1,29 @@
-[gd_scene load_steps=21 format=3 uid="uid://cjtvx57kj8vyw"]
+[gd_scene load_steps=27 format=3 uid="uid://cjtvx57kj8vyw"]
 
 [ext_resource type="Texture2D" uid="uid://jdilndfg8rid" path="res://assets/Zombie_1/Walk.png" id="1_41akp"]
 [ext_resource type="Texture2D" uid="uid://biba7lu8bddtm" path="res://assets/Zombie_1/Dead.png" id="1_dv2gm"]
 [ext_resource type="Script" uid="uid://clj6byvwkapka" path="res://zombie_1.gd" id="1_x582c"]
+[ext_resource type="Texture2D" uid="uid://bxltl2yhskamu" path="res://assets/Zombie_1/Attack.png" id="2_7csdf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0dcy"]
+atlas = ExtResource("2_7csdf")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl2c3"]
+atlas = ExtResource("2_7csdf")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5d2b"]
+atlas = ExtResource("2_7csdf")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7au4"]
+atlas = ExtResource("2_7csdf")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adey4"]
+atlas = ExtResource("2_7csdf")
+region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ovfi"]
 atlas = ExtResource("1_dv2gm")
@@ -68,6 +89,26 @@ region = Rect2(1152, 0, 128, 128)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_e0dcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl2c3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5d2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7au4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adey4")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1ovfi")
 }, {
 "duration": 1.0,
@@ -126,14 +167,15 @@ animations = [{
 size = Vector2(20, 64)
 
 [node name="Zombie_1" type="CharacterBody2D"]
+collision_mask = 4
 script = ExtResource("1_x582c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_1ovfi")
-animation = &"walk"
+animation = &"attack"
 autoplay = "walk"
-frame_progress = 0.016166
+frame_progress = 0.703236
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 31)
