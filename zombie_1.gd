@@ -3,24 +3,28 @@ var default_speed = 50
 var speed = 50
 var alive = true
 var health = 100
+@onready var mob_attack_timer: Timer = $mob_attack_timer
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var progress_bar: ProgressBar = $ProgressBar
 
+signal hit
 
-signal zombie_collider
 func _ready():
 	progress_bar.visible = false
 	progress_bar.value = health
-	zombie_collider.emit()
 	
-	pass
 
-	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if alive:
 		velocity.x = -speed
 	else:
 		velocity.x = 0
 		collision.set_deferred("disabled", true) # turn collision off when enemy dies
 	move_and_slide()
+
+
+func _on_mob_attack_timer_timeout() -> void:
+	hit.emit()
+	
+	
