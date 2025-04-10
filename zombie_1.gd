@@ -3,8 +3,9 @@ var default_speed = 50
 var speed = 50
 var alive = true
 var health = 100
-@onready var mob_attack_timer: Timer = $mob_attack_timer
+var damage = 5
 
+@onready var mob_attack_timer: Timer = $mob_attack_timer
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var progress_bar: ProgressBar = $ProgressBar
 
@@ -14,7 +15,6 @@ func _ready():
 	progress_bar.visible = false
 	progress_bar.value = health
 	
-
 func _physics_process(_delta: float) -> void:
 	if alive:
 		velocity.x = -speed

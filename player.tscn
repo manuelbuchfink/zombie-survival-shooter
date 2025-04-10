@@ -1,38 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dghn1nidlpy18"]
 
 [ext_resource type="Texture2D" uid="uid://bunsow5vky0mf" path="res://assets/hero_right_walk_16x16.png" id="1_48ufq"]
-
-[sub_resource type="GDScript" id="GDScript_48ufq"]
-script/source = "extends CharacterBody2D
-
-@export var Shot : PackedScene
-@onready var muzzle: Marker2D = $Muzzle  
-
-
-const SPEED = 200.0
-func shoot():  
-	var bullet_scene = preload(\"res://shot.tscn\").instantiate()	
-	var level_root = get_tree().get_root() # access root
-	
-	level_root.add_child(bullet_scene) # add child to root
-	bullet_scene.transform = muzzle.global_transform # assign muzzle pos to new bullet
-	
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed(\"shoot\"):
-		shoot()
-		
-	var direction := Input.get_axis(\"ui_down\", \"ui_up\")
-	
-	if direction:
-		velocity.y = -direction * SPEED
-		$AnimatedSprite2D.play(\"move\")
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-		$AnimatedSprite2D.play(\"idle\")
-	
-	move_and_slide()
-	
-"
+[ext_resource type="Script" uid="uid://dg5tkmhckiwop" path="res://player.gd" id="1_onrkg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wmkwl"]
 atlas = ExtResource("1_48ufq")
@@ -100,7 +69,8 @@ animations = [{
 radius = 16.1245
 
 [node name="Player" type="CharacterBody2D"]
-script = SubResource("GDScript_48ufq")
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-17, -36)

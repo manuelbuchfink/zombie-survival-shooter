@@ -3,9 +3,10 @@ extends Node2D
 @export var zombie_scene : PackedScene
 @onready var wall: TileMapLayer = $wall
 @onready var attacking_zombies = []
+@onready var wall_health: ProgressBar = $"UI/wall_health"
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# create zombie instances with randomized parameters for more variety
 	for i in 10:
 		var new_zombie = zombie_scene.instantiate()
 				
@@ -24,7 +25,7 @@ func _ready() -> void:
 func _on_hit():
 	# keep track of the number of currently attacking zombies
 	# the Array attacking_zombies contains all currently alive zombies on the wall
-	# we remove them from the array once they die so that they do not further  deal damage to the wall
+	# we remove them from the array once they die so that they do not further  deal damage to the wall	
 	for i in len(attacking_zombies):
 		if not attacking_zombies[i].alive:
 			attacking_zombies[i].queue_free() 
@@ -34,9 +35,12 @@ func _on_hit():
 	# deal damage to the wall as lon as its health is above 0
 	# once the wall falls, make all alive zombies walk again
 	if wall:
-		if wall.health > 0:			
-			wall.health-= 1
-			print(wall.health)
+		if wall.health > 0:
+			for zombie in attacking_zombies:
+				var damage = zombie.damage
+				wall.health-= damage
+				wall_health.value = wall.health
+				print(wall.health)
 			
 		else:
 			for zombie in attacking_zombies:
@@ -44,9 +48,8 @@ func _on_hit():
 				zombie.speed = zombie.default_speed
 			wall.queue_free()
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("zombies"):
-		print(body)
+func _on_area_2d_body_entered(body: Node2D) -> void:	
+	if body.is_in_group("zombies"):		
 		attacking_zombies.append(body)		
 		body.mob_attack_timer.start()
 		body.get_node("AnimatedSprite2D").play("attack")
