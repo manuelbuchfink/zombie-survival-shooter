@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cjtvx57kj8vyw"]
+[gd_scene load_steps=28 format=3 uid="uid://cjtvx57kj8vyw"]
 
 [ext_resource type="Texture2D" uid="uid://jdilndfg8rid" path="res://assets/Zombie_1/Walk.png" id="1_41akp"]
 [ext_resource type="Texture2D" uid="uid://biba7lu8bddtm" path="res://assets/Zombie_1/Dead.png" id="1_dv2gm"]
@@ -163,6 +163,9 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7csdf"]
+polygon = PackedVector2Array(4, 0, 13, -1, 13, 63, -7, 62, -7, 0)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x582c"]
 size = Vector2(20, 64)
 
@@ -173,9 +176,13 @@ script = ExtResource("1_x582c")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_1ovfi")
-animation = &"attack"
+animation = &"walk"
 autoplay = "walk"
-frame_progress = 0.703236
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D"]
+rotation = 3.14159
+scale = Vector2(1, -1)
+occluder = SubResource("OccluderPolygon2D_7csdf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 31)

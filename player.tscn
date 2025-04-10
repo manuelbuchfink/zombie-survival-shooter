@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dghn1nidlpy18"]
+[gd_scene load_steps=14 format=3 uid="uid://dghn1nidlpy18"]
 
 [ext_resource type="Texture2D" uid="uid://bunsow5vky0mf" path="res://assets/hero_right_walk_16x16.png" id="1_48ufq"]
 [ext_resource type="Script" uid="uid://dg5tkmhckiwop" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://f8g8nh6b1103" path="res://assets/Assoult Rifle.png" id="3_i3pqv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wmkwl"]
 atlas = ExtResource("1_48ufq")
@@ -68,6 +69,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q0wt"]
 radius = 16.1245
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i3pqv"]
+polygon = PackedVector2Array(28.5, 10, 28.5, -6.1, 4.8, -10, -9.5, -10, -10.3, -8, -28.5, -8, -28.5, 10, -18.9, 5.3, -15.7, 6, -14.6, 6, -12.5, 9.5, -6.4, 10, 2.2, 5.3, 3.5, 8.4, 3.5, 10, 7.4, 10, 13.4, 5, 14.3, 5, 15.5, 7.5, 15.5, 10)
+
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_onrkg")
@@ -82,3 +86,11 @@ frame_progress = 0.760326
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-19, -25)
 shape = SubResource("CircleShape2D_5q0wt")
+
+[node name="weapon" type="Sprite2D" parent="."]
+position = Vector2(-1.25, -17.5)
+texture = ExtResource("3_i3pqv")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(-1.25, -17.5)
+occluder = SubResource("OccluderPolygon2D_i3pqv")

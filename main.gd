@@ -7,6 +7,10 @@ extends Node2D
 
 func _ready() -> void:
 	# create zombie instances with randomized parameters for more variety
+	var spawn_timer = Timer.new()
+	add_child(spawn_timer)
+	spawn_timer.wait_time = 15
+	spawn_timer.connect("timeout", Callable(self, "_on_spawn_timeout"))
 	for i in 10:
 		var new_zombie = zombie_scene.instantiate()
 				
@@ -21,7 +25,8 @@ func _ready() -> void:
 		new_zombie.add_to_group("zombies")
 		new_zombie.default_speed  = random_velocity
 	
-	
+func _on_spawn_timeout():
+	pass
 func _on_hit():
 	# keep track of the number of currently attacking zombies
 	# the Array attacking_zombies contains all currently alive zombies on the wall

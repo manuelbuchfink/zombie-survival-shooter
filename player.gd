@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var Shot : PackedScene
 @onready var muzzle: Marker2D = $Muzzle  
 @onready var ammo: Sprite2D = $"../UI/ammo"
+@onready var weapon: Sprite2D = $weapon
 
 const MAX_MAG_SIZE = 4
 const SPEED = 200.0
@@ -65,9 +66,11 @@ func _physics_process(_delta: float) -> void:
 	if direction:
 		velocity.y = -direction * SPEED
 		$AnimatedSprite2D.play("move")
+		weapon.visible = false
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 		$AnimatedSprite2D.play("idle")
+		weapon.visible = true
 	
 	move_and_slide()
 	
