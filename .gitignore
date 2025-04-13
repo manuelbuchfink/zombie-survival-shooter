@@ -4,3 +4,7 @@
 README*
 addons/*
 assets/
+*.uid
+*.import
+LICENSE
+*.avi

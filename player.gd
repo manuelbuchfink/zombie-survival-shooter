@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var ammo: Sprite2D = $"../UI/ammo"
 @onready var weapon: Sprite2D = $weapon
 
+
 const MAX_MAG_SIZE = 4
 const SPEED = 200.0
 
@@ -21,8 +22,9 @@ func shoot() -> void:
 		var level_root = get_tree().get_root() # access root
 		
 		level_root.add_child(bullet_scene) # add child to root
+		var mouse_direction := get_global_mouse_position() - muzzle.global_position
 		bullet_scene.transform = muzzle.global_transform # assign muzzle pos to new bullet
-		
+		bullet_scene.rotation = mouse_direction.angle()
 		mag_size-=1
 		if mag_size > 0:			
 			ammo.frame = mag_size-1
@@ -35,7 +37,7 @@ func reload() -> void:
 	# reload is executed when timer is timeout
 	var reload_timer = Timer.new()
 	add_child(reload_timer)
-	reload_timer.wait_time = 0.5
+	reload_timer.wait_time = 0.2   
 	reload_timer.one_shot = true	
 	reload_timer.connect("timeout", Callable(self,  "_on_timer_timeout"))
 	reload_timer.start()
@@ -54,6 +56,7 @@ func _on_timer_timeout() -> void:
 		is_reloading = false
 		
 func _physics_process(_delta: float) -> void:
+	
 	if Input.is_action_just_pressed("shoot"):
 		if not is_reloading:
 			shoot()
@@ -71,6 +74,7 @@ func _physics_process(_delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 		$AnimatedSprite2D.play("idle")
 		weapon.visible = true
+		
 	
 	move_and_slide()
 	

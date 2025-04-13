@@ -8,7 +8,3 @@ func _ready():
 	
 	progress_bar.visible = false
 	progress_bar.value = health
-	
-
-	
-	

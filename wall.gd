@@ -9,5 +9,6 @@ func _ready() -> void:
 	wall_health.value = health
 	pass
 	
-func _on_body_entered(body: Node2D) -> void:
-	print(body)
+func _on_body_entered(_body: Node2D) -> void:
+	#print(body)
+	pass

@@ -8,4 +8,4 @@ func _ready():
 	
 	progress_bar.visible = false
 	progress_bar.value = health
-	default_speed = 100
+	speed = 100
