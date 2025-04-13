@@ -2,5 +2,5 @@
 .godot/
 /android/
 README*
-addons/
+addons/*
 assets/
