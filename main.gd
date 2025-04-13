@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var zombie_scene : PackedScene
+@export var zombie_1_scene : PackedScene
+@export var zombie_2_scene : PackedScene
 @onready var wall: TileMapLayer = $wall
 @onready var attacking_zombies = []
 @onready var wall_health: ProgressBar = $"UI/wall_health"
@@ -11,19 +12,36 @@ func _ready() -> void:
 	add_child(spawn_timer)
 	spawn_timer.wait_time = 15
 	spawn_timer.connect("timeout", Callable(self, "_on_spawn_timeout"))
-	for i in 10:
-		var new_zombie = zombie_scene.instantiate()
+	
+	# create zombie 1 instances
+	for i in 5:
+		var new_zombie = zombie_1_scene.instantiate()
 				
 		var random_height = randi_range(20 ,600)
 		var random_distance = randi_range(900 ,1300)
-		var random_velocity = randi_range(30,100)
 		
+		var random_animation_speed = randf_range(0.2, 1.0)
+		var random_velocity = random_animation_speed * new_zombie.default_speed
 		new_zombie.position = Vector2(random_distance, random_height)
-		new_zombie.speed = random_velocity
-		
-		add_child(new_zombie)
+		new_zombie.speed = random_velocity		
 		new_zombie.add_to_group("zombies")
-		new_zombie.default_speed  = random_velocity
+		new_zombie.get_node("AnimatedSprite2D").speed_scale = random_animation_speed
+		add_child(new_zombie)
+		
+	# create zombie 1 instances
+	for i in 5:
+		var new_zombie = zombie_2_scene.instantiate()
+				
+		var random_height = randi_range(20 ,600)
+		var random_distance = randi_range(900 ,1300)
+		
+		var random_animation_speed = randf_range(0.5, 1.0)
+		var random_velocity = random_animation_speed * new_zombie.default_speed
+		new_zombie.position = Vector2(random_distance, random_height)
+		new_zombie.speed = random_velocity		
+		new_zombie.add_to_group("zombies")
+		new_zombie.get_node("AnimatedSprite2D").speed_scale = random_animation_speed
+		add_child(new_zombie)
 	
 func _on_spawn_timeout():
 	pass
